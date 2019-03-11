@@ -26,15 +26,6 @@ const styles = theme => ({
             marginRight: 'auto',
         },
     },
-    toolbarMain: {
-        borderBottom: `1px solid ${theme.palette.grey[300]}`,
-    },
-    toolbarTitle: {
-        flex: 1,
-    },
-    toolbarSecondary: {
-        justifyContent: 'space-between',
-    },
     mainFeaturedPost: {
         backgroundColor: theme.palette.grey[800],
         color: theme.palette.common.white,
@@ -74,19 +65,6 @@ const styles = theme => ({
         padding: `${theme.spacing.unit * 6}px 0`,
     },
 });
-
-const sections = [
-    'Technology',
-    'Design',
-    'Culture',
-    'Business',
-    'Politics',
-    'Opinion',
-    'Science',
-    'Health',
-    'Style',
-    'Travel',
-];
 
 const featuredPosts = [
     {

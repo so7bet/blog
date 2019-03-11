@@ -48672,7 +48672,8 @@ var styles = function styles(theme) {
       flex: 1
     },
     toolbarSecondary: {
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      flexWrap: 'wrap'
     },
     button: {
       margin: theme.spacing.unit
@@ -48998,15 +48999,6 @@ var styles = function styles(theme) {
       marginLeft: 'auto',
       marginRight: 'auto'
     }),
-    toolbarMain: {
-      borderBottom: "1px solid ".concat(theme.palette.grey[300])
-    },
-    toolbarTitle: {
-      flex: 1
-    },
-    toolbarSecondary: {
-      justifyContent: 'space-between'
-    },
     mainFeaturedPost: {
       backgroundColor: theme.palette.grey[800],
       color: theme.palette.common.white,
@@ -49047,7 +49039,6 @@ var styles = function styles(theme) {
   };
 };
 
-var sections = ['Technology', 'Design', 'Culture', 'Business', 'Politics', 'Opinion', 'Science', 'Health', 'Style', 'Travel'];
 var featuredPosts = [{
   title: 'Featured post',
   date: 'Nov 12',

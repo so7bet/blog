@@ -28,6 +28,7 @@ const styles = theme => ({
     },
     toolbarSecondary: {
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
     },
     button: {
         margin: theme.spacing.unit,
