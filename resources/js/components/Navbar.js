@@ -56,7 +56,7 @@ function ButtonAppBar(props) {
     return (
         <div className={classes.layout}>
             <Toolbar className={classes.toolbarMain}>
-                <Button size="small">Subscribe</Button>
+                <Button component={Link} to="/register" size="small">Register</Button>
                 <Typography
                     component="h2"
                     variant="h5"

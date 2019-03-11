@@ -1,7 +1,52 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from './Navbar'
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import axios from 'axios'
+
+const styles = theme => ({
+    main: {
+        width: 'auto',
+        display: 'block', // Fix IE 11 issue.
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+            width: 400,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
+    paper: {
+        marginTop: theme.spacing.unit * 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    },
+    avatar: {
+        margin: theme.spacing.unit,
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing.unit,
+    },
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
+});
 
 class Register extends Component {
 
@@ -25,7 +70,7 @@ class Register extends Component {
             password_confirmation
           })
           .then(response=> {
-           this.setState({err: false});
+           /*this.setState({err: false});*/
            this.props.history.push("home") ;
           })
           .catch(error=> {
@@ -33,7 +78,7 @@ class Register extends Component {
             this.refs.password.value="";
             this.refs.email.value="";
             this.refs.confirm.value="";
-            this.setState({err: true});
+            /*this.setState({err: true});*/
           });
      }
 
@@ -46,67 +91,54 @@ class Register extends Component {
         let error = this.state.err ;
         let msg = (!error) ? 'Registered Successfully' : 'Oops! , Something went wrong.' ;
         let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
-        return (   
-             <div>   
-                <Nav />
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-8 col-md-offset-2">
-                            <div className="panel panel-default">
-                                <div className="panel-heading">Register</div>
-                                <div className="panel-body">
-                                    <div className="col-md-offset-2 col-md-8 col-md-offset-2">
-                                        {error != undefined && <div className={name} role="alert">{msg}</div>}
-                                    </div>   
-                                    <form className="form-horizontal" role="form" method="POST" onSubmit= {this.onSubmit.bind(this)}>
-                                        <div className="form-group">
-                                            <label htmlFor="name" className="col-md-4 control-label">Name</label>
+        const { classes } = this.props;
+        return (
+            <main className={classes.main}>
+                <CssBaseline />
+                <Paper className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Register
+                    </Typography>
+                    <form className={classes.form}>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="name">Name</InputLabel>
+                            <Input id="name" name="name" onChange={this.onChange.bind(this)} autoFocus />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="email">Email Address</InputLabel>
+                            <Input id="email" name="email" onChange={this.onChange.bind(this)} autoFocus />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input name="password" type="password" id="password"  onChange={this.onChange.bind(this)} />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="password_confirmation">Password Confirmation</InputLabel>
+                            <Input name="password_confirmation" type="password" id="password_confirmation" onChange={this.onChange.bind(this)} />
+                        </FormControl>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={this.onSubmit}
+                        >
+                            Register
+                        </Button>
+                    </form>
+                </Paper>
+            </main>
+        );
+    }
 
-                                            <div className="col-md-6">
-                                                <input id="name" type="text" className="form-control" ref="name" name="name" onChange={this.onChange.bind(this)} required />
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label htmlFor="email" className="col-md-4 control-label">E-Mail Address</label>
-
-                                            <div className="col-md-6">
-                                                <input id="email" type="email" className="form-control" ref="email" name="email" onChange={this.onChange.bind(this)} required />
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label htmlFor="password" className="col-md-4 control-label">Password</label>
-
-                                            <div className="col-md-6">
-                                                <input id="password" type="password" className="form-control"  ref="password" name="password" onChange={this.onChange.bind(this)} required/>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label htmlFor="password-confirm" className="col-md-4 control-label">Confirm Password</label>
-
-                                            <div className="col-md-6">
-                                                <input id="password-confirm" type="password" className="form-control" ref="confirm" name="password_confirmation" onChange={this.onChange.bind(this)} required/>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <div className="col-md-6 col-md-offset-4">
-                                                <button type="submit" className="btn btn-primary">
-                                                    Register
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>    
-        )
-      }
 }
 
-export default Register
+Register.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(Register);
+

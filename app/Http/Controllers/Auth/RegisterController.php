@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,9 +50,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -63,10 +65,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+            //echo "<pre>";print_r($data);die;
+            $user = new User;
+            $user->name=$data['name'];
+            $user->email=$data['email'];
+            $user->password=bcrypt($data['password']) ;
+            $user->password_confirmation=bcrypt($data['password_confirmation']);
+            $user->save();
+
+        return $user;
+    }
+        /*return User::create([
             'name' => $data['name'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'pincode' => $data['pincode'],
+            'mobile' => $data['mobile'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
-    }
+        ]);*/
+
+
 }
